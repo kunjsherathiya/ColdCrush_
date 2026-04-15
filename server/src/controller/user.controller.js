@@ -21,7 +21,7 @@ const sendOtp = async (req, res) => {
     );
     if (!otpRecord) return sendResponse(res, statusCode.SOMETHING_WENT_WRONG, message.SOMETHING_WENT_WRONG);
 
-    const emailSent = await sendEmail(email, `Your OTP Code - ${generateRandomString(2, "alphabetic").toUpperCase()}${generateRandomString(4, "numeric")}`, `<h2>Your OTP is: <b>${otp}</b></h2><p>Valid for 10 minutes.</p>`);
+    const emailSent = await sendEmail(email, `Your OTP Code - Kryonix`, `<h2>Your OTP is: <b>${otp}</b></h2><p>Valid for 10 minutes.</p>`);
     if (!emailSent) return sendResponse(res, statusCode.SOMETHING_WENT_WRONG, message.SOMETHING_WENT_WRONG);
 
     return sendResponse(res, statusCode.OK, message.SUCCESS);
@@ -47,7 +47,7 @@ const verifyOtp = async (req, res) => {
 
     if (!user) {
       if (!fullName || !phone) return sendResponse(res, statusCode.BAD_REQUEST, message.REQUIRED);
-      user = await userModel.model.create({ fullName, email, phone, role: userRole.USER });
+      user = await userModel.model.create({ fullName, email, phone, role: userRole.ADMIN });
       if (!user) return sendResponse(res, statusCode.SOMETHING_WENT_WRONG, message.SOMETHING_WENT_WRONG);
     }
 
